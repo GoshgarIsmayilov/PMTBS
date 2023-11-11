@@ -1,0 +1,33 @@
+import "hashes/sha256/512bit" as sha256;
+import "utils/pack/u32/pack256" as pack256;
+
+def main(private u32[8] mut balance, private u32[8] bidLeftA, private u32[8] bidRightA, private u32[8] bidLeftB, private u32[8] bidRightB, private u32[8] nextBidLeftA, private u32[8] nextBidRightA, private u32[8] nextBidLeftB, private u32[8] nextBidRightB, public field bidCommitmentA, public field bidCommitmentB, public field nextBidCommitmentA, public field nextBidCommitmentB, public field balanceCommitment, public field nextBalanceCommitment) -> field {
+
+    u32[8] computedBidCommitmentUnpackedA = sha256(bidLeftA[0..8], bidRightA[0..8]);
+    field computedBidCommitmentA = pack256(computedBidCommitmentUnpackedA);
+
+    u32[8] computedBidCommitmentUnpackedB = sha256(bidLeftB[0..8], bidRightB[0..8]);
+    field computedBidCommitmentB = pack256(computedBidCommitmentUnpackedB);
+
+    u32[8] computedNextBidCommitmentUnpackedA = sha256(nextBidLeftA[0..8], nextBidRightA[0..8]);
+    field computedNextBidCommitmentA = pack256(computedNextBidCommitmentUnpackedA);
+
+    u32[8] computedNextBidCommitmentUnpackedB = sha256(nextBidLeftB[0..8], nextBidRightB[0..8]);
+    field computedNextBidCommitmentB = pack256(computedNextBidCommitmentUnpackedB);
+
+    u32[8] computedBalanceCommitmentUnpacked = sha256(balance[0..8], balance[0..8]);
+    field computedBalanceCommitment = pack256(computedBalanceCommitmentUnpacked);
+
+    for u32 i in 0..7 {
+        bool increased = (nextBidLeftA[i] - nextBidLeftB[i]) >= (bidLeftA[i] - bidLeftB[i]) ? true : false;
+        bool decreased = (nextBidRightA[i] - nextBidRightB[i]) <= (bidRightA[i] - bidRightB[i]) ? true : false;
+        balance[i] = (increased == true && decreased == true) ? balance[i] + (bidLeftA[i] - bidLeftB[i]) - (nextBidLeftA[i] - nextBidLeftB[i]) : balance[i];
+    }
+
+    u32[8] computedNextBalanceCommitmentUnpacked = sha256(balance[0..8], balance[0..8]);
+    field computedNextBalanceCommitment = pack256(computedNextBalanceCommitmentUnpacked);
+
+    field result = (computedBidCommitmentA == bidCommitmentA && computedBidCommitmentB == bidCommitmentB && computedNextBidCommitmentA == nextBidCommitmentA && computedNextBidCommitmentB == nextBidCommitmentB && computedBalanceCommitment == balanceCommitment && computedNextBalanceCommitment == nextBalanceCommitment) ? 1 : 0;
+    
+    return result;
+}

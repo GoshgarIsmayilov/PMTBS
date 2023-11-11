@@ -1,0 +1,9 @@
+import "hashes/sha256/512bit" as sha256;
+import "utils/pack/u32/pack256" as pack256;
+
+def main(private u32[8] left, private u32[8] right) -> field {
+    u32[8] computedCommitmentUnpacked = sha256(left[0..8], right[0..8]);
+    field computedCommitment = pack256(computedCommitmentUnpacked);
+    
+    return computedCommitment;
+}

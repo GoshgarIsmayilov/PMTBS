@@ -1,0 +1,22 @@
+import "hashes/sha256/512bit" as sha256;
+import "utils/pack/u32/pack256" as pack256;
+
+def main(private u32[8] mut myBidLeft, private u32[8] mut myBidRight, private u32[8] pairBidLeft, private u32[8] pairBidRight, public field myBidCommitment, public field pairBidCommitment, public field sumBidCommitment) -> field {
+    u32[8] computedMyBidCommitmentUnpacked = sha256(myBidLeft[0..8], myBidRight[0..8]);
+    field computedMyBidCommitment = pack256(computedMyBidCommitmentUnpacked);
+
+    u32[8] computedPairBidCommitmentUnpacked = sha256(pairBidLeft[0..8], pairBidRight[0..8]);
+    field computedPairBidCommitment = pack256(computedPairBidCommitmentUnpacked);
+
+    for u32 i in 0..7 {
+        myBidLeft[i] = myBidLeft[i] + pairBidLeft[i];
+        myBidRight[i] = myBidRight[i] + pairBidRight[i];
+    }
+
+    u32[8] computedSumBidCommitmentUnpacked = sha256(myBidLeft[0..8], myBidRight[0..8]);
+    field computedSumBidCommitment = pack256(computedSumBidCommitmentUnpacked);
+
+    field result = (computedMyBidCommitment == myBidCommitment && computedPairBidCommitment == pairBidCommitment && computedSumBidCommitment == sumBidCommitment) ? 1 : 0;
+
+    return result;
+}

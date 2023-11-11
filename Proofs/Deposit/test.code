@@ -1,0 +1,22 @@
+import "hashes/sha256/512bit" as sha256;
+import "utils/pack/u32/pack256" as pack256;
+
+def main(private u32[8] mut balance, private u32[8] deposit, public field balanceCommitment, public field depositCommitment, public field nextBalanceCommitment) -> field {
+
+    u32[8] computedBalanceCommitmentUnpacked = sha256(balance[0..8], balance[0..8]);
+    field computedBalanceCommitment = pack256(computedBalanceCommitmentUnpacked);
+
+    u32[8] computedDepositCommitmentUnpacked = sha256(deposit[0..8], deposit[0..8]);
+    field computedDepositCommitment = pack256(computedDepositCommitmentUnpacked);
+
+    for u32 i in 0..7 {
+        balance[i] = balance[i] - deposit[i];
+    }
+
+    u32[8] computedNextBalanceCommitmentUnpacked = sha256(balance[0..8], balance[0..8]);
+    field computedNextBalanceCommitment = pack256(computedNextBalanceCommitmentUnpacked);
+
+    field result = (computedBalanceCommitment == balanceCommitment && computedDepositCommitment == depositCommitment && computedNextBalanceCommitment == nextBalanceCommitment) ? 1 : 0;
+    
+    return result;
+}
