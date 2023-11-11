@@ -127,28 +127,28 @@ Barter Contract: 0xEe6DaA402ac81Ac0F74Ce6F0A6A9dEeF54D13152
 
 ## Zero-Knowledge Proof Generation/Verification Times
 
-| Run             | Generation Time (sec)  | 
-| --------------- | ---------------------- | 
-| 0               | 95.812                 |   
-| 1               | 91.022                 |  
-| 2               | 87.475                 |  
-| 3               | 91.622                 |  
-| 4               | 87.333                 |  
-| 5               | 88.207                 |  
-| 6               | 87.289                 |  
-| 7               | 87.485                 |  
-| 8               | 87.274                 |  
-| 9               | 87.433                 |  
-| 10              | 87.292                 |  
-| 11              | 89.328                 |  
-| 12              | 87.522                 |  
-| 13              | 87.167                 |  
-| 14              | 87.429                 |  
-| 15              | 87.342                 |  
-| 16              | 87.302                 |  
-| 17              | 87.234                 |  
-| 18              | 87.180                 |  
-| 19              | 87.252                 |  
+| Run             | Deposit Tokens (sec)   | Withdraw Tokens (sec)  | (Re)propose Bids (sec)  | Verify Aggregation (sec)  | Barter Tokens (sec)  |   
+| --------------- | ---------------------- | ---------------------- | ----------------------- | ------------------------- | -------------------- |
+0 | 45.001 | 44.562 | 98.051 | 45.731 | 95.475  |  
+1 | 44.804 | 43.849 | 94.550 | 44.022 | 89.261  |
+2 | 44.581 | 43.832 | 91.196 | 43.609 | 89.453  |
+3 | 46.100 | 43.738 | 91.607 | 43.802 | 89.766  |
+4 | 45.269 | 43.808 | 92.552 | 44.164 | 89.550  |
+5 | 44.874 | 43.585 | 91.448 | 45.485 | 88.986  |
+6 | 44.938 | 43.933 | 91.049 | 43.992 | 89.128  |
+7 | 45.570 | 43.851 | 94.973 | 43.449 | 90.911  |
+8 | 45.246 | 43.744 | 93.799 | 43.807 | 90.600  |
+9 | 45.127 | 43.626 | 92.963 | 43.520 | 89.181 |
+10 | 45.119 | 44.012 | 91.456 | 43.753 | 89.098 |
+11 | 45.902 | 44.135 | 94.289 | 44.149 | 90.436 |
+12 | 44.751 | 43.623 | 92.904 | 44.017 | 89.382 |
+13 | 44.807 | 43.788 | 91.855 | 43.876 | 91.165 |
+14 | 45.165 | 43.594 | 91.862 | 43.419 | 88.921 |
+15 | 46.153 | 43.633 | 91.543 | 44.004 | 89.709 |
+16 | 44.841 | 43.599 | 90.844 | 43.991 | 88.889 |
+17 | 45.572 | 43.930 | 90.692 | 43.812 | 91.133 |
+18 | 45.520 | 44.087 | 91.714 | 44.038 | 91.813 |
+19 | 44.889 | 43.875 | 91.545 | 43.803 | 89.024 |
 
 The zero-knowledge proofs are verified on-chain, without requiring any time cost. Note that the outliers are excluded in the figure.
 
@@ -178,6 +178,23 @@ Submit Bid Aggregation...   Verify Bid Aggregation...    Barter Bid...
 
 <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/submit_bid_aggregation.png" width="37%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/verify_bid_aggregation.png" width="32%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/barter_tokens.png" width="25%"/>  
 
+# Publications to Read
+
+1. C.Ozturan,”Barter machine: an autonomous, distributed barter exchange on the ethereum blockchain”, Ledger, vol. 5, 2020.
+
+2. E. Ben-Sasson, A. Chiesa, E. Tromer, M. Virza, ”Succinct Non-Interactive Zero Knowledge for a von Neumann Architecture”, 23rd USENIX Security Symposium (USENIX Security), 14, pp. 781- 796, 2014.
+
+3. J. Eberhardt, S. Tai, ”Zokrates-scalable privacy-preserving off-chain computations”, IEEE International Conference on Internet of Things (iThings), pp. 1084-1091, 2018
+
+4. G. Ismayilov, C. Ozturan, ”PTTS: Zero-Knowledge Proof-based Private Token Transfer System on Ethereum Blockchain and its Network Flow Based Balance Range Privacy Attack Analysis”, https://arxiv.org/pdf/2308.15139.pdf.
+
+5. G. Ismayilov, C. Ozturan, ”Trustless Privacy-Preserving Data Aggregation on Ethereum with Hypercube Network Topology”, https://arxiv.org/pdf/2308.15267.pdf.
+
+6. S. Goldwasser, S. Micali, C. Rackoff, ”The knowledge complexity of interactive proof systems”, SIAM Journal on computing, vol. 18, no. 1, pp. 186-208, 1989.
+
+7. V. K. Prabhala, ”Algorithms for Incomplete Hypercubes”, Master’s Theses, Western Michigan University, 851, 1992.
+
+8. Zokrates-js JavaScript Library, URL: https://www.npmjs.com/package/zokrates-js, last accessed: 6 September 2023.
 
 # Disclaimer
 
