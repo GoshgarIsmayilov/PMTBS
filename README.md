@@ -160,6 +160,164 @@ ZKP Times for Aggregation...   ZKP Times for Barter...   ZKP Times for Reproposa
 
 <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_aggregation.png" width="30%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_barter.png" width="32%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_reproposal.png" width="31%"/>  
 
+# Some Maths
+
+## Problem Definition
+
+The privacy-preserving ascending auction-based multi-token bartering is a problem where a group of honest-but-curious users are involved to exchange certain tokens in return for other tokens with the help of a smart contract. Let $\{u_0, u_1, ...., u_i, ...,u_{N-1}\} \in U$ be the set of all available users who are willing to join certain bartering session where $N$ is the number of users and $\{\tau_0, \tau_1, ...., \tau_i, ...,\tau_{M-1}\} \in T$ be the set of all available tokens where $M$ is the number of available token types. Each user $u_i = < \theta_i, \beta_i >$ is associated with (i) a composite balance $\theta_i = <\{\theta_{i,0}, \theta_{i,1}, ..., \theta_{i,j}, ..., \theta_{i,M-1}\} > $ to represent the number of instances per each token type and (ii) a bid $\beta_i = <\beta_i^-, \beta_i^+>$ to represent the number of instances per token type to be given $\beta_i^-$ and to be received $\beta_i^+$. While tokens to be given form the left-hand side (i.e. negative changes) of each bid as $\beta_i^- = <\Delta_{i,0}^-,\Delta_{i,1}^-, ..., \Delta_{i,j}^-, ..., \Delta_{i,M-1}^- >$, tokens to be received form the right-hand side (i.e. positive changes) as $\beta_i^+ = <\Delta_{i,0}^+,\Delta_{i,1}^+, ..., \Delta_{i,j}^+, ..., \Delta_{i,M-1}^+ >$.
+
+To have a valid bartering solution, the bids are expected to iteratively supply more tokens and demand less tokens so that the summation of supplies is equal to or greater than the summation of demands:
+
+$$
+\begin{equation}
+\sum_i^N \beta_i^- \geq \sum_i^N \beta_i^+ \to \sum_i^N \Delta_{i,j}^- \geq \sum_i^N \Delta_{i,j}^+, \forall j
+\end{equation}
+$$
+
+Until the condition above is true, the users are expected to repropose again in the next reproposal iteration with abiding the following conditions: 
+
+$$
+\begin{equation}
+\Delta_{i,j, t+1}^- \geq  \Delta_{i,j, t}^-, \forall i, j
+\end{equation}
+$$
+
+$$
+\begin{equation}
+\Delta_{i,j, t+1}^+ \leq  \Delta_{i,j, t}^+, \forall i, j
+\end{equation}
+$$
+
+where it simply means that in Eq. (5), the number of instances supplied per token in the next reproposal cycle $t+1$ must be greater than the number of instances supplied per token in the current reproposal cycle $t$ (i.e. over-supply requirement) and in Eq. (6) the number of instances demanded per token in the next reproposal cycle $t+1$ must be lower than the number of instances supplied per token in the current reproposal cycle $t$ (i.e. under-demand requirement) for every user. Any bid must meet the balance requirement as follows:
+
+$$
+\begin{equation}
+\theta_{i,j} \geq  \Delta_{i,j}^-, \forall i, j
+\end{equation}
+$$
+
+\noindent
+where it means that the number of instances supplied per token must be lower than the number of instances the user $i$ currently owns for that token.
+
+## Privacy-Preserving Multi-Token Transfer
+
+The receiver generates a public and private key pair as follows:
+
+$$
+\begin{align}
+& (pk, sk) = KeyGen(k) 
+\end{align}
+$$
+
+where the public key $pk$ and the secret (i.e. private) key $sk$ are the outputs of the key generation function $KeyGen$ based on the security parameter $k$. The sender uses it to encrypt the information exchange in the direct communication with the receiver: 
+
+$$
+\begin{align}
+& E = Enc(\Delta, pk)
+\end{align}
+$$
+
+where $\Delta$ is the amount of tokens to be deposited while $E$ is the resulting ciphertext at the end of the encryption function $Enc$. The sender generates a zero-knowledge proof off-chain which is later verified on-chain to show the correctness of the subtraction of the tokens from the balance: 
+
+$$
+\begin{align}
+& \pi = ZkpGen([\theta\_{t+1} = \theta\_{t} - \Delta]) \\
+& b = ZkpVfy([\pi, c^{\Delta}, c^{\theta\_{t}}, c^{\theta\_{t+1}}])
+\end{align}
+$$
+
+where $\theta_{t}$ is the current balance, $\theta_{t+1}$ is the next balance after the tokens are deposited and $\pi$ is the resulting proof of the zero-knowledge proof generation function $ZkpGen$ in eq. (10). Similarly, $b$ is the correctness of the proof verified through the zero-knowledge proof verification function $ZkpVfy$ based on the commitments of the amounts to be deposited $c^{\Delta}$, the current balance $c^{\theta_{t}}$ and the next balance $c^{\theta_{t+1}}$ in eq. (11). If the proof is correct, the sender balance is updated accordingly. The receiver starts withdrawing from the contract by decrypting the encryption with the private key: 
+
+$$
+\begin{align}
+& \Delta = D = Dec(E, sk)
+\end{align}
+$$
+
+where $D$ is the resulting plaintext at the end of the decryption function $Dec$. After the receiver learns the amount of tokens deposited, a zero-knowledge proof is generated off-chain to show the correctness of the addition of the tokens into the balance:
+
+$$
+\begin{align}
+& \pi = ZkpGen([\theta\_{t+1} = \theta\_{t} + \Delta]) \\
+& b = ZkpVfy([\pi, c^{\Delta}, c^{\theta\_{t}}, c^{\theta\_{t+1}}])
+\end{align} 
+$$
+
+where the number of tokens previously deposited by the sender must be equal to the number of tokens withdrawn by the receiver. In case the proof is correct, the sender balance is updated accordingly.
+
+## Privacy-Preserving Multi-Token Bartering
+
+Each user proposes bid where a zero-knowledge proof must be generated to show that the over-supply, under-demand and balance requirements are satisfied:
+
+$$
+\begin{align}
+& \pi = ZkpGen([\theta\_{t+1} = \theta\_{t} - \beta^-]) \\
+& b = ZkpVfy([\pi, c^{\beta\_{t+1}}_{A}, c^{\beta\_{t+1}}\_{B}, c^{\theta\_{t}}, c^{\theta\_{t+1}}])
+\end{align} 
+$$
+
+where the amount of tokens supplied $\beta^-$ in the bid is taken away from the current balance $\theta_{t}$ to obtain the next balance $\theta_{t+1}$. The resulting proof $\pi$ is later submitted to the contract to be verified based on the bid commitments for two hypercube networks $c^{\beta\_{t+1}}\_{A}, c^{\beta\_{t+1}}\_{B}$ (i.e. Hypercube-A and Hypercube-B) and the balance commitments $c^{\theta_{t}}, c^{\theta_{t+1}}$. If the proof is correct, the user balance is updated with $c^{\theta_{t+1}}$. In the \textit{submitting bid aggregation} stage, two pairs of each user are determined from two hypercube networks:
+
+$$
+\begin{align}
+& u^p_A = u \oplus 2^h \\
+& u^p_B = u \oplus 2^{(log(N) - h - 1)}
+\end{align}
+$$
+
+where $h \in [0, log(N)-1]$ is the current hypercube stage and; $u^p_A$ and $u^p_A$ are the pairs of the user $u$ in the Hypercube-A and Hypercube-B, respectively. Their public keys are fetched from the contract to encrypt the bid aggregations before submission:
+
+$$
+\begin{align}
+& E\_{A} = Enc([\beta^{agg}\_{A} = \beta\_{A} + \beta^{P}\_{A}], pk^{P}\_{A}) \\
+& E\_{B} = Enc([\beta^{agg}\_{B} = \beta\_{B} + \beta^{P}\_{B}], pk^{P}\_{B})
+\end{align}
+$$
+
+where $E^A$ and $E^B$ are the encryptions for \textit{Hypercube-A} and \textit{Hypercube-B}, respectively. In the \textit{verifying bid aggregation} stage, the encryptions are fetched from the contract for decryption:
+
+$$
+\begin{align}
+& \beta^{P}\_{A} = D\_{A} = Dec(E\_{A}, sk) \\
+& \beta^{P}\_{B} = D\_{B} = Dec(E\_{B}, sk)
+\end{align}
+$$
+
+\noindent
+where $D^A$ and $D^B$ are the decryptions for \textit{Hypercube-A} and \textit{Hypercube-B}, respectively. The aggregation operations performed the submitting bid aggregation stage must be proven through two zero-knowledge proofs as follows:
+
+$$
+\begin{align}
+& \pi\_{A} = ZkpGen(\beta^{agg}\_{A} = \beta\_{A} + \beta^{P}\_{A}) \\
+& \pi\_{B} = ZkpGen(\beta^{agg}\_{B} = \beta\_{B} + \beta^{P}\_{B}) \\
+& b\_{A} = ZkpVfy(\pi\_{A}, c^{\beta}\_{A}, c^{\beta^P}\_{A}, c^{agg}\_{A}) \\
+& b\_{B} = ZkpVfy(\pi\_{B}, c^{\beta}\_{B}, c^{\beta^P}\_{B}, c^{agg}\_{B})
+\end{align}
+$$
+
+where the resulting proofs $\pi_{A}, \pi_{B}$ are submitted to the contract to be verified based on the commitments of the user current aggregations $c^{\beta}\_{A}, c^{\beta}\_{B}$ , paired user current aggregations $c^{\beta^P}\_{A}, c^{\beta^P}\_{B}$ and cumulatively aggregated aggregations $c^{agg}\_{A}, c^{agg}\_{B}$.
+
+In case there exists a bartering solution formed after the bid aggregation, each user can barter tokens with respect to that solution. Otherwise, in the reproposing bid stage, each user is expected to repropose bid again by increasing the number of tokens supplied and decreasing the number of tokens demanded: 
+
+$$
+\begin{align}
+& \pi = ZkpGen(\theta\_{t+1} = \theta_{t} + \beta\_{t}^- - \beta\_{t+1}^-) \\
+& b = ZkpVfy(\pi, c^{\beta\_{t}}\_{A}, c^{\beta_{t}}\_{B}, c^{\beta\_{t+1}}\_{A}, c^{\beta\_{t+1}}\_{B}, c^{\theta\_{t}}, c^{\theta\_{t+1}})
+\end{align} 
+$$
+
+where tokens supplied in the current bid $\beta\_{t}^-$ are given back to the balance in return for the tokens supplied in the next bid $\beta\_{t+1}^-$. In case there exist a solution, in the \textit{bartering token} stage, the tokens are bartered with following way: 
+
+$$
+\begin{align}
+& \pi = ZkpGen(\theta\_{t+1} = \theta\_{t} + \beta\_{t+1}^+) \\
+& b = ZkpVfy(\pi, c^{agg}\_{A}, c^{agg}\_{B}, c^{\beta_{t}}\_{A}, c^{\beta\_{t}}\_{B}, c^{\theta\_{t}}, c^{\theta\_{t+1}})
+\end{align} 
+$$
+
+\noindent
+where tokens demanded in the bid $\beta\_{t+1}^+$ are given to the next balance $\theta\_{t+1}$. 
+
 # Web User Interface
 
 Deploy Multi-Token Contract...   Get Consent...   Give Consent...  
