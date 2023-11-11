@@ -1,6 +1,7 @@
 https://logo.com
 https://opentimestamps.org
 https://certify.bloxberg.org
+git lfs track '*.sol'
 
 Proof Generation Times
 
