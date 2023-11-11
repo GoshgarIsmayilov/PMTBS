@@ -1,0 +1,6 @@
+*.js filter=lfs diff=lfs merge=lfs -text
+node_modules/** filter=lfs diff=lfs merge=lfs -text
+*.sol filter=lfs diff=lfs merge=lfs -text
+Dapp/node_modules/** filter=lfs diff=lfs merge=lfs -text
+Dapp/dist/** filter=lfs diff=lfs merge=lfs -text
+Auxiliary/Screenshots/** filter=lfs diff=lfs merge=lfs -text
