@@ -6,8 +6,8 @@ Blockchain is an advanced distributed database that enables information to be se
 has been successfully integrated into many real-world applications. In recent years, bartering for the exchange of tokenized assets  on blockchains has been been receiving attention.
 In this paper, we have addressed the privacy-preserving ascending auction-based multi-token bartering problem on blockchain where the user balances and user bids are private. For the
 given problem, we have proposed the _PMTBS_ protocol (i.e. Privacy-preserving Multi-Token Bartering System) utilizing commitments, asymmetric encryptions and zero-knowledge proofs.
-The protocol supports both privacy-preserving multi-token transfer through \textit{depositing token} and \textit{withdrawing token} stages; and privacy-preserving multi-token 
-bartering through \textit{(re)proposing bid}, \textit{submitting bid aggregation}, \textit{verifying bid aggregation} and \textit{bartering token} stages. The protocol is analyzed 
+The protocol supports both privacy-preserving multi-token transfer through _depositing token_ and _withdrawing token_ stages; and privacy-preserving multi-token 
+bartering through _(re)proposing bid_, _submitting bid aggregation_, _verifying bid aggregation_ and _bartering token_ stages. The protocol is analyzed 
 based on the security and scalability perspectives including the computational, communicational and storage overheads. For the experimental study, the performance of the protocol 
 is measured based on the blockchain gas costs and the zero-knowledge proof generation and verification times. 
 
@@ -196,7 +196,6 @@ $$
 \end{equation}
 $$
 
-\noindent
 where it means that the number of instances supplied per token must be lower than the number of instances the user $i$ currently owns for that token.
 
 ## Privacy-Preserving Multi-Token Transfer
@@ -256,7 +255,7 @@ $$
 \end{align} 
 $$
 
-where the amount of tokens supplied $\beta^-$ in the bid is taken away from the current balance $\theta_{t}$ to obtain the next balance $\theta_{t+1}$. The resulting proof $\pi$ is later submitted to the contract to be verified based on the bid commitments for two hypercube networks $c^{\beta\_{t+1}}\_{A}, c^{\beta\_{t+1}}\_{B}$ (i.e. Hypercube-A and Hypercube-B) and the balance commitments $c^{\theta_{t}}, c^{\theta_{t+1}}$. If the proof is correct, the user balance is updated with $c^{\theta_{t+1}}$. In the \textit{submitting bid aggregation} stage, two pairs of each user are determined from two hypercube networks:
+where the amount of tokens supplied $\beta^-$ in the bid is taken away from the current balance $\theta_{t}$ to obtain the next balance $\theta_{t+1}$. The resulting proof $\pi$ is later submitted to the contract to be verified based on the bid commitments for two hypercube networks $c^{\beta\_{t+1}}\_{A}, c^{\beta\_{t+1}}\_{B}$ (i.e. _Hypercube-A_ and _Hypercube-B_) and the balance commitments $c^{\theta_{t}}, c^{\theta_{t+1}}$. If the proof is correct, the user balance is updated with $c^{\theta_{t+1}}$. In the _submitting bid aggregation_ stage, two pairs of each user are determined from two hypercube networks:
 
 $$
 \begin{align}
@@ -265,7 +264,7 @@ $$
 \end{align}
 $$
 
-where $h \in [0, log(N)-1]$ is the current hypercube stage and; $u^p_A$ and $u^p_A$ are the pairs of the user $u$ in the Hypercube-A and Hypercube-B, respectively. Their public keys are fetched from the contract to encrypt the bid aggregations before submission:
+where $h \in [0, log(N)-1]$ is the current hypercube stage and; $u^p_A$ and $u^p_A$ are the pairs of the user $u$ in the _Hypercube-A_ and _Hypercube-B_, respectively. Their public keys are fetched from the contract to encrypt the bid aggregations before submission:
 
 $$
 \begin{align}
@@ -274,7 +273,7 @@ $$
 \end{align}
 $$
 
-where $E^A$ and $E^B$ are the encryptions for \textit{Hypercube-A} and \textit{Hypercube-B}, respectively. In the \textit{verifying bid aggregation} stage, the encryptions are fetched from the contract for decryption:
+where $E^A$ and $E^B$ are the encryptions for _Hypercube-A_ and _Hypercube-B_, respectively. In the _verifying bid aggregation_ stage, the encryptions are fetched from the contract for decryption:
 
 $$
 \begin{align}
@@ -283,8 +282,7 @@ $$
 \end{align}
 $$
 
-\noindent
-where $D^A$ and $D^B$ are the decryptions for \textit{Hypercube-A} and \textit{Hypercube-B}, respectively. The aggregation operations performed the submitting bid aggregation stage must be proven through two zero-knowledge proofs as follows:
+where $D^A$ and $D^B$ are the decryptions for _Hypercube-A_ and _Hypercube-B_, respectively. The aggregation operations performed the submitting bid aggregation stage must be proven through two zero-knowledge proofs as follows:
 
 $$
 \begin{align}
@@ -306,7 +304,7 @@ $$
 \end{align} 
 $$
 
-where tokens supplied in the current bid $\beta\_{t}^-$ are given back to the balance in return for the tokens supplied in the next bid $\beta\_{t+1}^-$. In case there exist a solution, in the \textit{bartering token} stage, the tokens are bartered with following way: 
+where tokens supplied in the current bid $\beta\_{t}^-$ are given back to the balance in return for the tokens supplied in the next bid $\beta\_{t+1}^-$. In case there exist a solution, in the _bartering token_ stage, the tokens are bartered with following way: 
 
 $$
 \begin{align}
@@ -315,7 +313,6 @@ $$
 \end{align} 
 $$
 
-\noindent
 where tokens demanded in the bid $\beta\_{t+1}^+$ are given to the next balance $\theta\_{t+1}$. 
 
 # Web User Interface
