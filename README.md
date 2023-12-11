@@ -36,9 +36,9 @@ Steps to make a private bartering:
 5. If the final bid aggregation is a solution for bartering, barter the multi-tokens by adding the multi-tokens to be requsted to the balance in the Multi-Token contract by generating corresponding bartering proof.
 6. If the final bid aggregation is not a solution for bartering, go back to step 3 to repropose the bid by increasing the multi-tokens to be given and decreasing the multi-tokens to be requested by generating corresponding reproposal proof.
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/barter_main.png" width="60%"/> 
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/barter_main.png" width="60%"/> 
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/example.png" width="60%"/> 
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/example.png" width="60%"/> 
 
 # To Run Local Blockchain Test
 
@@ -154,11 +154,11 @@ The zero-knowledge proofs are verified on-chain, without requiring any time cost
 
 ZKP Times for Depositing...   ZKP Times for Withdrawing...    
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_deposit.png" width="20%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_withdraw.png" width="20%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/zkp_times_deposit.png" width="20%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/zkp_times_withdraw.png" width="20%"/>  
 
 ZKP Times for Aggregation...   ZKP Times for Barter...   ZKP Times for Reproposal...  
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_aggregation.png" width="19%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_barter.png" width="20%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/zkp_times_reproposal.png" width="19.5%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/zkp_times_aggregation.png" width="19%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/zkp_times_barter.png" width="20%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/zkp_times_reproposal.png" width="19.5%"/>  
 
 # Some Maths
 
@@ -319,19 +319,19 @@ where tokens demanded in the bid $\beta\_{t+1}^+$ are given to the next balance 
 
 Deploy Multi-Token Contract...   Get Consent...   Give Consent...  
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/deploy_multi_token.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/get_consent.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/give_consent.png" width="25%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/deploy_multi_token.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/get_consent.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/give_consent.png" width="25%"/>  
 
 Deposit Multi-Tokens...   Withdraw Multi-Tokens
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/deposit_tokens.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/withdraw_tokens.png" width="25%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/deposit_tokens.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/withdraw_tokens.png" width="25%"/>  
 
 Deploy Barter Contract...   Propose Bid...   Repropose Bid...   
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/deploy_barter.png" width="27%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/propose_bid.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/repropose_bid.png" width="18%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/deploy_barter.png" width="27%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/propose_bid.png" width="25%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/repropose_bid.png" width="18%"/>  
 
 Submit Bid Aggregation...   Verify Bid Aggregation...    Barter Bid...   
 
-<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/submit_bid_aggregation.png" width="27%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/verify_bid_aggregation.png" width="23.5%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshots/barter_tokens.png" width="18%"/>  
+<img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/submit_bid_aggregation.png" width="27%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/verify_bid_aggregation.png" width="23.5%"/> <img src="https://github.com/GoshgarIsmayilov/PMTBS/blob/main/Auxiliary/Screenshot/barter_tokens.png" width="18%"/>  
 
 # Publications to Read
 
